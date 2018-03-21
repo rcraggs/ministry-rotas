@@ -11,9 +11,10 @@ public class LoginController {
         return "/login";
     }
 
-    @GetMapping("/")
-    public String index() {
-        return "/index";
+    @GetMapping("/logout")
+    public String logout() {
+        // TODO: do some log out stuff in the controller
+        return "/login";
     }
 
 }

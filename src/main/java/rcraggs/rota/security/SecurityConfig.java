@@ -29,11 +29,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
             .antMatchers("/login").permitAll()
+//            .antMatchers("/").permitAll()
             .antMatchers("/").authenticated()
             .and()
             .formLogin().loginPage("/login")
             .defaultSuccessUrl("/")
-            .failureUrl("/?error")
+            .failureUrl("/error")
             .usernameParameter("username").passwordParameter("password")
             .and()
             .logout()

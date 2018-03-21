@@ -5,21 +5,10 @@ import javax.persistence.*;
 @Entity
 public class User {
 
-
-    private String identifier;
-
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
-    }
-
-    public String getIdentifier() {
-        return identifier;
-    }
-
     public enum UserRole {
-        TUTOR,
         ADMIN,
-        STUDENT
+        LEADER,
+        SERVANT
     }
 
     @Id
