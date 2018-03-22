@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="layouts/layout">
+<head>
+</head>
+<body>
+<div layout:fragment="breadcrumbs">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item">Users</li>
+        <li class="breadcrumb-item active">Add</li>
+    </ol>
+</div>
+<div layout:fragment="content">
+
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-header">
+                Add <strong>Administrator</strong>
+            </div>
+            <form action="#" th:action="@{~/users/submit}" th:object="${user}" method="post" class="form-horizontal">
+                <div class="card-body">
+                    <div th:replace="fragments/userform :: userform"/>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" name="save" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
+                    <a class="btn btn-sm btn-danger" th:href="@{~/users}"><i class="fa fa-ban"></i> Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

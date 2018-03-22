@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="userform">
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label for="email">Email</label>
+            <input type="text" id="email" th:value="${user.email   }" name="email" class="form-control" placeholder="Enter Email.." th:errorclass="is-invalid">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="username">Username</label>
+            <input type="text" id="username" th:value="${user.username}" name="username" class="form-control" placeholder="Enter Username.." th:errorclass="is-invalid">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label for="forename">Forename</label>
+            <input type="text" id="forename" th:value="${user.forename}" name="forename" class="form-control" placeholder="Enter Forename.." th:errorclass="is-invalid">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('forename')}" th:errors="*{forename}">Name Error</div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="surname">Surname</label>
+            <input type="text" id="surname" th:value="${user.surname}" name="surname" class="form-control" placeholder="Enter Surname.." th:errorclass="is-invalid">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Name Error</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Enter Password.." th:errorclass="is-invalid">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="confirmPassword">Confirm</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm Password.." th:errorclass="is-invalid">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Name Error</div>
+        </div>
+    </div>
+    <!--<div class="row">-->
+        <!--<div class="form-group col-sm-6">-->
+            <!--<label for="identifier">Identifier</label>-->
+            <!--<input type="text" id="identifier" th:value="${user.identifier}" name="identifier" class="form-control" placeholder="Enter Identifier..">-->
+        <!--</div>-->
+    <!--</div>-->
+</div>
+</body>
+</html>

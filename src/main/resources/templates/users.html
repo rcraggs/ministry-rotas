@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="layouts/layout">
+<head>
+</head>
+<body>
+<div layout:fragment="breadcrumbs">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item active">Administrators</li>
+    </ol>
+</div>
+<div layout:fragment="content">
+
+    <div class="card">
+        <div class="card-header">
+            Administrators
+        </div>
+        <div class="card-body">
+            <table class="table table-responsive-sm">
+                <thead>
+                <tr>
+                    <th>Edit</th>
+                    <th>Username</th>
+                    <th class="d-none d-md-table-cell">Email</th>
+                    <th class="d-none d-sm-table-cell">Forename</th>
+                    <th class="d-none d-sm-table-cell">Surname</th>
+                    <th>Role</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user,iterationStatus  : ${users}">
+                    <td><i class="fa fa-edit"></i></td>
+                    <td th:text="${user.username}"/>
+                    <td class="d-none d-md-table-cell" th:text="${user.email}"/>
+                    <td class="d-none d-sm-table-cell" th:text="${user.forename}"/>
+                    <td class="d-none d-sm-table-cell" th:text="${user.surname}"/>
+                    <td th:text="${user.role}"/>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-primary" th:href="@{~/users/add}" role="button">Add User</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
