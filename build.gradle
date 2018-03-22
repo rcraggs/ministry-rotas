@@ -32,9 +32,16 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile("org.springframework.boot:spring-boot-starter-data-jpa")
 	runtime('org.springframework.boot:spring-boot-devtools')
-	runtime('com.h2database:h2')
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.security:spring-security-test')
+
+	runtime('com.h2database:h2')
+
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile("org.thymeleaf:thymeleaf")
+	compile("org.thymeleaf:thymeleaf-spring4")
+	compile("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.1.1")
 }
 
 clientDependencies {

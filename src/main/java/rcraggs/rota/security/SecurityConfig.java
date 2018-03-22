@@ -25,23 +25,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-//.antMatchers("/webpa").hasAnyRole("ADMIN", "TUTOR")
-
         http.authorizeRequests()
-            .antMatchers("/login").permitAll()
-//            .antMatchers("/").permitAll()
-            .antMatchers("/").authenticated()
-            .and()
-            .formLogin().loginPage("/login")
-            .defaultSuccessUrl("/")
-            .failureUrl("/error")
-            .usernameParameter("username").passwordParameter("password")
-            .and()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/**").permitAll()
+                .antMatchers("/vendor/**", "/css/**").permitAll()
+//                .anyRequest().authenticated()
+                .and()
+            .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/")
+                .failureUrl("/?error")
+                .usernameParameter("username").passwordParameter("password")
+                .permitAll()
+                .and()
             .logout()
                 .logoutSuccessUrl("/?logout")
                 .logoutUrl("/logout")
             .and()
-            .exceptionHandling().accessDeniedPage("/login");
+            .exceptionHandling().accessDeniedPage("/login?authenicationError");
 
             http.csrf().disable();
             http.headers().frameOptions().disable();
@@ -50,6 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
+        auth.userDetailsService(userDetailsService);
     }
 
     @Bean

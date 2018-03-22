@@ -14,7 +14,7 @@ public class RotaUserDetails implements UserDetails {
 
     private User user;
 
-    public RotaUserDetails(User user) {
+    RotaUserDetails(User user) {
         this.user = user;
     }
 

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html   xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,AngularJS,Angular,Angular2,Angular 2,Angular4,Angular 4,jQuery,CSS,HTML,RWD,Dashboard,React,React.js,Vue,Vue.js">
+    <link rel="shortcut icon" href="img/favicon.png">
+    <title>Rotas</title>
+
+    <!-- Icons -->
+    <link th:href="@{~/vendor/flag-icon-css/css/flag-icon.css}" rel="stylesheet">
+    <link th:href="@{~/vendor/font-awesome/css/font-awesome.css}" rel="stylesheet">
+    <link th:href="@{~/vendor/simple-line-icons/css/simple-line-icons.css}" rel="stylesheet">
+
+    <!-- Main styles for this application -->
+    <link th:href="@{~/css/style.css}" rel="stylesheet">
+</head>
+<!-- BODY options, add following classes to body to change options
+
+// Header options
+1. '.header-fixed'					- Fixed Header
+
+// Brand options
+1. '.brand-minimized'       - Minimized brand (Only symbol)
+
+// Sidebar options
+1. '.sidebar-fixed'					- Fixed Sidebar
+2. '.sidebar-hidden'				- Hidden Sidebar
+3. '.sidebar-off-canvas'		- Off Canvas Sidebar
+4. '.sidebar-minimized'			- Minimized Sidebar (Only icons)
+5. '.sidebar-compact'			  - Compact Sidebar
+
+// Aside options
+1. '.aside-menu-fixed'			- Fixed Aside Menu
+2. '.aside-menu-hidden'			- Hidden Aside Menu
+3. '.aside-menu-off-canvas'	- Off Canvas Aside Menu
+
+// Breadcrumb options
+1. '.breadcrumb-fixed'			- Fixed Breadcrumb
+
+// Footer options
+1. '.footer-fixed'					- Fixed footer
+
+-->
+
+<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+    <header class="app-header navbar">
+        <button class="navbar-toggler mobile-sidebar-toggler d-lg-none mr-auto" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="nav navbar-nav d-md-down-none">
+            <li class="nav-item px-3">
+                <a class="nav-link" href="#">Dashboard</a>
+            </li>
+            <li class="nav-item px-3">
+                <a class="nav-link" href="#">Users</a>
+            </li>
+            <li class="nav-item px-3">
+                <a class="nav-link" href="#">Settings</a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="icon-user"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <!--<div class="dropdown-header text-center">-->
+                        <!--<strong>Settings</strong>-->
+                    <!--</div>-->
+                    <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>
+                    <a class="dropdown-item" th:href="@{/logout}"><i class="fa fa-lock"></i> Logout</a>
+
+                </div>
+            </li>
+        </ul>
+    </header>
+
+    <div class="app-body">
+        <div class="sidebar">
+            <nav class="sidebar-nav">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/webpa}"><i class="icon-speedometer"></i> Dashboard <span class="badge badge-primary">NEW</span></a>
+                    </li>
+                    <div sec:authorize="hasRole('ROLE_ADMIN')">
+                        <li class="nav-title">
+                            Admin
+                        </li>
+                        <li class="nav-item">
+                            <a th:href="@{/administrators}" class="nav-link"><i class="icon-lock-open"></i>Administrators</a>
+                        </li>
+                    </div>
+
+                    <li class="nav-title">
+                        Tutor
+                    </li>
+                    <li class="nav-item">
+                        <a href="colors.html" class="nav-link"><i class="icon-drop"></i> Colors</a>
+                    </li>                </ul>
+            </nav>
+            <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+        </div>
+
+        <!-- Main content -->
+        <main class="main">
+            <div layout:fragment="breadcrumbs"></div>
+            <div class="container-fluid">
+
+                <!-- If there is an alert in the model, then display it -->
+
+
+                <div th:if="${messagetype} != null">
+                    <div th:classappend="${messagetype == 'info'} ? alert-info : alert-warning"  class="alert" role="alert">
+                        <span th:text="${message}"/>
+                    </div>
+                </div>
+
+                <section class="content">
+                    <div layout:fragment="content"></div>
+                </section>
+            </div>
+            <!-- /.conainer-fluid -->
+        </main>
+
+    </div>
+
+    <footer class="app-footer">
+        <span><a href="http://coreui.io">CoreUI</a> © 2018 creativeLabs.</span>
+        <span class="ml-auto">Powered by <a href="http://coreui.io">CoreUI</a></span>
+    </footer>
+
+    <!-- Bootstrap and necessary plugins -->
+    <script th:src="@{~/vendor/jquery/jquery.js}"></script>
+    <script th:src="@{~/vendor/popper.js/umd/popper.js}"></script>
+    <script th:src="@{~/vendor/bootstrap/js/bootstrap.js}"></script>
+    <script th:src="@{~/vendor/pace-progress/pace.js}"></script>
+    <script th:src="@{~/vendor/chart.js/Chart.js}"></script>
+
+    <!-- CoreUI main scripts -->
+
+    <script th:src="@{~/js/app.js}"></script>
+
+    <!-- Plugins and scripts required by this views -->
+
+    <!-- Custom scripts required by this view -->
+    <script th:src="@{~/js/views/main.js}"></script>
+    </body>
+</html>

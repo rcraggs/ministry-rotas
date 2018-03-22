@@ -1,9 +1,27 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml">
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="layouts/layout">
 <head>
+    <meta charset="UTF-8"/>
+    <title>Rota</title>
 </head>
 <body>
-logged in
+<div layout:fragment="breadcrumbs">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Home</li>
+        <li class="breadcrumb-item active">Users</li>
+    </ol>
+</div>
+<div layout:fragment="content">
+
+    <div class="card">
+        <div class="card-header"></div>
+        <div class="card-body"></div>
+        <div class="card-footer"></div>
+    </div>
+</div>
 </body>
 </html>
