@@ -94,19 +94,12 @@
                     </li>
                     <div sec:authorize="hasRole('ROLE_ADMIN')">
                         <li class="nav-title">
-                            Admin
+                            Setup
                         </li>
                         <li class="nav-item">
-                            <a th:href="@{/users}" class="nav-link"><i class="icon-lock-open"></i>Administrators</a>
+                            <a th:href="@{/users}" class="nav-link"><i class="icon-lock-open"></i>Users</a>
                         </li>
                     </div>
-
-                    <li class="nav-title">
-                        Tutor
-                    </li>
-                    <li class="nav-item">
-                        <a href="colors.html" class="nav-link"><i class="icon-drop"></i> Colors</a>
-                    </li>                </ul>
             </nav>
             <button class="sidebar-minimizer brand-minimizer" type="button"></button>
         </div>
