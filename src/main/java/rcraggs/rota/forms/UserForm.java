@@ -11,6 +11,7 @@ public class UserForm {
     private String forename;
     private String surname;
     private String confirmPassword;
+    private User.UserRole role;
     private boolean newUser;
 
     public UserForm(){}
@@ -21,6 +22,7 @@ public class UserForm {
         email = user.getEmail();
         forename = user.getForename();
         surname = user.getSurname();
+        role = user.getRole();
         newUser = false;
 
         // TODO add a role into this and the adding form
@@ -88,5 +90,13 @@ public class UserForm {
 
     public void setNewUser(boolean newUser) {
         this.newUser = newUser;
+    }
+
+    public User.UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(User.UserRole role) {
+        this.role = role;
     }
 }

@@ -7,7 +7,9 @@ public class User {
 
     public enum UserRole {
         ADMIN,
-        USER
+        USER;
+
+        public static final UserRole[] ALL = { ADMIN, USER };
     }
 
     @Id

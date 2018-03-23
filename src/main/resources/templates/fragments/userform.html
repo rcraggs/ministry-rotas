@@ -41,6 +41,16 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label>Role</label>
+            <select th:field="*{role}" class="form-control">
+                <option th:each="role : ${allRoles}" th:value="${role}" th:text="${role}">Wireframe</option>
+            </select>
+            <!--<div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</div>-->
+        </div>
+    </div>
+
     <input th:type="hidden" th:field="${user.newUser}"/>
 </div>
 </body>

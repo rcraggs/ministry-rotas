@@ -15,6 +15,7 @@ import rcraggs.rota.repository.UserRepository;
 import rcraggs.rota.validation.UserValidator;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +40,11 @@ public class UsersController {
         binder.addValidators(userValidator);
     }
 
+    @ModelAttribute("allRoles")
+    public List<User.UserRole> populateTypes() {
+        return Arrays.asList(User.UserRole.ALL);
+    }
+
     @RequestMapping("")
     public ModelAndView users(){
         ModelAndView m = new ModelAndView("users");
@@ -53,7 +59,7 @@ public class UsersController {
         return new ModelAndView("adduser");
     }
 
-    @RequestMapping("submit")
+    @PostMapping("submit")
     public ModelAndView createOrUpdateUser(@Valid @ModelAttribute("user") UserForm user, BindingResult result, RedirectAttributes attributes) {
 
         ModelAndView m = new ModelAndView();
@@ -66,15 +72,16 @@ public class UsersController {
         // If the user already exists, update it, otherwise create a new one
         Optional<User> u = repository.findById(user.getId());
         if (!u.isPresent()){
-            User newAdmin = new User();
-            newAdmin.setEmail(user.getEmail());
-            newAdmin.setForename(user.getForename());
-            newAdmin.setSurname(user.getSurname());
-            newAdmin.setPassword(passwordEncoder.encode(user.getPassword()));
-            newAdmin.setRole(User.UserRole.ADMIN);
-            newAdmin.setUsername(user.getUsername());
+            User newUser = new User();
+            newUser.setEmail(user.getEmail());
+            newUser.setForename(user.getForename());
+            newUser.setSurname(user.getSurname());
+            newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+            newUser.setRole(User.UserRole.ADMIN);
+            newUser.setUsername(user.getUsername());
+            newUser.setRole(user.getRole());
 
-            repository.save(newAdmin);
+            repository.save(newUser);
             attributes.addFlashAttribute("message", "New user has been added");
         }else{
 
@@ -82,7 +89,7 @@ public class UsersController {
             existingUser.setEmail(user.getEmail());
             existingUser.setForename(user.getForename());
             existingUser.setSurname(user.getSurname());
-            existingUser.setRole(User.UserRole.ADMIN);
+            existingUser.setRole(user.getRole());
 
             repository.save(existingUser);
             attributes.addFlashAttribute("message", "User has been updated");
