@@ -7,8 +7,7 @@ public class User {
 
     public enum UserRole {
         ADMIN,
-        LEADER,
-        SERVANT
+        USER
     }
 
     @Id

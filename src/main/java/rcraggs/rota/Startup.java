@@ -27,13 +27,21 @@ public class Startup implements ApplicationRunner {
 
     public void run(ApplicationArguments args) {
 
-        // Add 10 default tutors and admins
+        // Add 10 default users and admins
         for (int i=1; i<=10; i++){
             User admin = new User("admin" + i, passwordEncoder.encode("admin123"), User.UserRole.ADMIN);
             admin.setSurname("Surname" + i);
             admin.setForename("Forename" + i);
             admin.setEmail("admin"+i+"@example.com");
 
+            repository.save(admin);
+        }
+
+        for (int i=1; i<=10; i++){
+            User admin = new User("user" + i, passwordEncoder.encode("user123"), User.UserRole.USER);
+            admin.setSurname("UserSurname" + i);
+            admin.setForename("UserForename" + i);
+            admin.setEmail("user"+i+"@example.com");
             repository.save(admin);
         }
     }
