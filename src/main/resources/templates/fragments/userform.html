@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
 <div th:fragment="userform">
+
     <div class="row">
         <div class="form-group col-sm-6">
             <label for="email">Email</label>
@@ -10,7 +11,7 @@
         </div>
         <div class="form-group col-sm-6">
             <label for="username">Username</label>
-            <input type="text" id="username" th:value="${user.username}" name="username" class="form-control" placeholder="Enter Username.." th:errorclass="is-invalid">
+            <input type="text" id="username" th:value="${user.username}" name="username" class="form-control" placeholder="Enter Username.." th:errorclass="is-invalid" th:readonly="${!user.newUser}">
             <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</div>
         </div>
     </div>
@@ -26,7 +27,8 @@
             <div class="invalid-feedback" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Name Error</div>
         </div>
     </div>
-    <div class="row">
+
+    <div class="row"  th:if="${user.newUser}">
         <div class="form-group col-sm-6">
             <label for="password">Password</label>
             <input type="password" id="password" name="password" class="form-control" placeholder="Enter Password.." th:errorclass="is-invalid">
@@ -38,12 +40,8 @@
             <div class="invalid-feedback" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Name Error</div>
         </div>
     </div>
-    <!--<div class="row">-->
-        <!--<div class="form-group col-sm-6">-->
-            <!--<label for="identifier">Identifier</label>-->
-            <!--<input type="text" id="identifier" th:value="${user.identifier}" name="identifier" class="form-control" placeholder="Enter Identifier..">-->
-        <!--</div>-->
-    <!--</div>-->
+
+    <input th:type="hidden" th:field="${user.newUser}"/>
 </div>
 </body>
 </html>

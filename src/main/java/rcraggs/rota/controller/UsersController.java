@@ -5,15 +5,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import rcraggs.rota.forms.UserForm;
 import rcraggs.rota.model.User;
 import rcraggs.rota.repository.UserRepository;
+import rcraggs.rota.validation.UserValidator;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -24,11 +23,21 @@ import java.util.Optional;
 @PreAuthorize("hasRole('ADMIN')")
 public class UsersController {
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository repository;
+    private final UserValidator userValidator;
 
     @Autowired
-    UserRepository repository;
+    public UsersController(PasswordEncoder passwordEncoder, UserRepository repository, UserValidator userValidator) {
+        this.passwordEncoder = passwordEncoder;
+        this.repository = repository;
+        this.userValidator = userValidator;
+    }
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.addValidators(userValidator);
+    }
 
     @RequestMapping("")
     public ModelAndView users(){
@@ -40,11 +49,12 @@ public class UsersController {
 
     @RequestMapping(value = "/add")
     public ModelAndView addUserForm(@ModelAttribute("user") UserForm user) {
+        user.setNewUser(true);
         return new ModelAndView("adduser");
     }
 
     @RequestMapping("submit")
-    public ModelAndView createUser(@Valid @ModelAttribute("user") UserForm user, BindingResult result) {
+    public ModelAndView createOrUpdateUser(@Valid @ModelAttribute("user") UserForm user, BindingResult result, RedirectAttributes attributes) {
 
         ModelAndView m = new ModelAndView();
         if (result.hasErrors()){
@@ -53,14 +63,31 @@ public class UsersController {
             return m;
         }
 
-        User newAdmin = new User();
-        newAdmin.setEmail(user.getEmail());
-        newAdmin.setForename(user.getForename());
-        newAdmin.setSurname(user.getSurname());
-        newAdmin.setPassword(passwordEncoder.encode(user.getPassword()));
-        newAdmin.setRole(User.UserRole.ADMIN);
-        newAdmin.setUsername(user.getUsername());
-        repository.save(newAdmin);
+        // If the user already exists, update it, otherwise create a new one
+        Optional<User> u = repository.findById(user.getId());
+        if (!u.isPresent()){
+            User newAdmin = new User();
+            newAdmin.setEmail(user.getEmail());
+            newAdmin.setForename(user.getForename());
+            newAdmin.setSurname(user.getSurname());
+            newAdmin.setPassword(passwordEncoder.encode(user.getPassword()));
+            newAdmin.setRole(User.UserRole.ADMIN);
+            newAdmin.setUsername(user.getUsername());
+
+            repository.save(newAdmin);
+            attributes.addFlashAttribute("message", "New user has been added");
+        }else{
+
+            User existingUser = u.get();
+            existingUser.setEmail(user.getEmail());
+            existingUser.setForename(user.getForename());
+            existingUser.setSurname(user.getSurname());
+            existingUser.setRole(User.UserRole.ADMIN);
+
+            repository.save(existingUser);
+            attributes.addFlashAttribute("message", "User has been updated");
+        }
+
         m.setViewName("redirect:/users");
         return m;
     }
@@ -77,6 +104,8 @@ public class UsersController {
             return m;
         }
 
+        m.addObject("user", new UserForm(u.get()));
+        m.setViewName("edituser");
         return m;
     }
 

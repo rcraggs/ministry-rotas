@@ -1,13 +1,30 @@
 package rcraggs.rota.forms;
 
+import rcraggs.rota.model.User;
+
 public class UserForm {
 
+    private long id;
     private String username;
     private String password;
     private String email;
     private String forename;
     private String surname;
     private String confirmPassword;
+    private boolean newUser;
+
+    public UserForm(){}
+
+    public UserForm(User user){
+        id = user.getId();
+        username = user.getUsername();
+        email = user.getEmail();
+        forename = user.getForename();
+        surname = user.getSurname();
+        newUser = false;
+
+        // TODO add a role into this and the adding form
+    }
 
     public String getUsername() {
         return username;
@@ -55,5 +72,21 @@ public class UserForm {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public boolean isNewUser() {
+        return newUser;
+    }
+
+    public void setNewUser(boolean newUser) {
+        this.newUser = newUser;
     }
 }

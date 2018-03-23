@@ -28,7 +28,6 @@ public class UserValidator implements Validator {
         ValidationUtils.rejectIfEmpty(err, "forename", "user.forename.empty");
         ValidationUtils.rejectIfEmpty(err, "surname", "user.surname.empty");
         ValidationUtils.rejectIfEmpty(err, "username", "user.username.empty");
-        ValidationUtils.rejectIfEmpty(err, "password", "user.password.empty");
 
         UserForm user = (UserForm) obj;
 
@@ -38,14 +37,17 @@ public class UserValidator implements Validator {
             err.rejectValue("email", "user.email.invalid");
         }
 
+        if (user.isNewUser()) {
+            ValidationUtils.rejectIfEmpty(err, "password", "user.password.empty");
 
-        if (!user.getPassword().equals(user.getConfirmPassword())){
-            err.rejectValue("confirmPassword", "user.password.different");
-        }
+            if (!user.getPassword().equals(user.getConfirmPassword())) {
+                err.rejectValue("confirmPassword", "user.password.different");
+            }
 
-        if (!user.getUsername().isEmpty()){
-            if (repository.findByUsername(user.getUsername()) != null){
-                err.rejectValue("username", "user.username.unique");
+            if (!user.getUsername().isEmpty()) {
+                if (repository.findByUsername(user.getUsername()) != null) {
+                    err.rejectValue("username", "user.username.unique");
+                }
             }
         }
     }
