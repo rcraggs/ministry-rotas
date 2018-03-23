@@ -34,6 +34,10 @@ public class User {
         this.role = role;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getEmail() {
         return email;
     }

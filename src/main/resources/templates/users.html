@@ -33,7 +33,9 @@
                 </thead>
                 <tbody>
                 <tr th:each="user,iterationStatus  : ${users}">
-                    <td><i class="fa fa-edit"></i></td>
+                    <td>
+                        <a th:href="@{'edituser/' + ${user.id}}"><i class="fa fa-edit"></i></a>
+                    </td>
                     <td th:text="${user.username}"/>
                     <td class="d-none d-md-table-cell" th:text="${user.email}"/>
                     <td class="d-none d-sm-table-cell" th:text="${user.forename}"/>
