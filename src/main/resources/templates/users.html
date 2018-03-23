@@ -14,7 +14,6 @@
     </ol>
 </div>
 <div layout:fragment="content">
-
     <div class="card">
         <div class="card-header">
             Users
@@ -34,7 +33,7 @@
                 <tbody>
                 <tr th:each="user,iterationStatus  : ${users}">
                     <td>
-                        <a th:href="@{'edituser/' + ${user.id}}"><i class="fa fa-edit"></i></a>
+                        <a th:href="@{'users/edit/' + ${user.id}}"><i class="fa fa-edit"></i></a>
                     </td>
                     <td th:text="${user.username}"/>
                     <td class="d-none d-md-table-cell" th:text="${user.email}"/>

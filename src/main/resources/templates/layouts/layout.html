@@ -111,9 +111,11 @@
 
                 <!-- If there is an alert in the model, then display it -->
 
-
-                <div th:if="${messagetype} != null">
-                    <div th:classappend="${messagetype == 'info'} ? alert-info : alert-warning"  class="alert" role="alert">
+                <div th:if="${message} != null">
+                    <!--<div th:classappend="${messagetype == 'info'} ? alert-info : alert-warning"  class="alert" role="alert">-->
+                        <!--<span th:text="${message}"/>-->
+                    <!--</div>-->
+                    <div th:classappend="${messagetype == 'warning'} ? 'alert-warning' : 'alert-info'" class="alert" role="alert">
                         <span th:text="${message}"/>
                     </div>
                 </div>
