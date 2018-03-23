@@ -9,14 +9,17 @@ public class LoginController {
 
     @RequestMapping("/login")
     public String login() {
-        return "login";
+        return "pages/login";
     }
-
 
     @GetMapping("/logout")
     public String logout() {
         // TODO: do some log out stuff in the controller
-        return "login";
+        return "pages/login";
     }
 
+    @GetMapping("/forbidden")
+    public String forbidden() {
+        return "pages/forbidden";
+    }
 }
